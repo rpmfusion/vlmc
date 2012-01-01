@@ -1,8 +1,8 @@
-%global gitsnapshot fbbb86f
+%global gitsnapshot bf8417f
 
 Name:           vlmc
 Version:        0.2.0
-Release:        0.3.git%{gitsnapshot}%{?dist}
+Release:        0.4.git%{gitsnapshot}%{?dist}
 Summary:        VideoLAN Movie Creator
 
 Group:          Applications/Multimedia
@@ -67,6 +67,9 @@ rm -rf $RPM_BUILD_ROOT
 
 
 %changelog
+* Sun Jan 01 2012 Nicolas Chauvet <kwizart@gmail.com> - 0.2.0-0.4.gitbf8417f
+- Update to today's git
+
 * Mon Oct 17 2011 Nicolas Chauvet <kwizart@gmail.com> - 0.2.0-0.3.gitfbbb86f
 - Update to current git
 
