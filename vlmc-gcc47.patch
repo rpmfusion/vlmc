@@ -1,0 +1,24 @@
+diff -up vlmc-20120408/src/Project/WorkspaceWorker.cpp.gcc47 vlmc-20120408/src/Project/WorkspaceWorker.cpp
+--- vlmc-20120408/src/Project/WorkspaceWorker.cpp.gcc47	2012-03-29 19:37:10.000000000 +0200
++++ vlmc-20120408/src/Project/WorkspaceWorker.cpp	2012-04-08 17:34:05.298089633 +0200
+@@ -20,6 +20,8 @@
+  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston MA 02110-1301, USA.
+  *****************************************************************************/
+ 
++#include <unistd.h> // link
++
+ #include "WorkspaceWorker.h"
+ 
+ #include "Media.h"
+diff -up vlmc-20120408/src/vlmc.h.gcc47 vlmc-20120408/src/vlmc.h
+--- vlmc-20120408/src/vlmc.h.gcc47	2012-03-29 19:37:10.000000000 +0200
++++ vlmc-20120408/src/vlmc.h	2012-04-08 17:33:15.322088791 +0200
+@@ -24,6 +24,8 @@
+ #ifndef VLMC_H
+ #define VLMC_H
+ 
++#include <unistd.h> // sleep
++
+ #include <QtGlobal>
+ 
+ #ifdef Q_OS_WIN

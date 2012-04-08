@@ -1,17 +1,17 @@
-%global gitsnapshot 991cfe4
+%global date 20120408
 
 Name:           vlmc
 Version:        0.2.0
-Release:        0.5.git%{gitsnapshot}%{?dist}
+Release:        0.5.git%{date}%{?dist}
 Summary:        VideoLAN Movie Creator
 
 Group:          Applications/Multimedia
 License:        GPLv2+
 URL:            http://trac.videolan.org/vlmc
-#Current snapshot at 20110109
-#http://git.videolan.org/?p=vlmc.git;a=snapshot;h=25a398b4e84a81e1482f93957f55077f4842f59e;sf=tgz
-Source0:        vlmc-%{gitsnapshot}.tar.gz
+Source0:        vlmc-%{date}.tar.bz2
+Source9:	vlmc-snapshot.sh
 Patch0:         vlmc-13c4dbc-ldf.patch
+Patch1:         vlmc-gcc47.patch
 BuildRoot:      %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
 
 BuildRequires:  vlc-devel >= 1.1.4
@@ -25,8 +25,9 @@ Requires:  frei0r-plugins
 VideoLAN Movie Creator is a non-linear editing software for video creation based on libVLC
 
 %prep
-%setup -q -n vlmc-%{gitsnapshot}
+%setup -q -n vlmc-%{date}
 %patch0 -p1 -b .ldf
+%patch1 -p1 -b .gcc47
 
 
 %build
