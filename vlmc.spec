@@ -2,7 +2,7 @@
 
 Name:           vlmc
 Version:        0.2.0
-Release:        0.6.git%{date}%{?dist}
+Release:        0.7.git%{date}%{?dist}
 Summary:        VideoLAN Movie Creator
 
 Group:          Applications/Multimedia
@@ -68,6 +68,9 @@ rm -rf $RPM_BUILD_ROOT
 
 
 %changelog
+* Sun Mar 03 2013 Nicolas Chauvet <kwizart@gmail.com> - 0.2.0-0.7.git20120408
+- Mass rebuilt for Fedora 19 Features
+
 * Sun Apr 08 2012 Nicolas Chauvet <kwizart@gmail.com> - 0.2.0-0.6.git20120408
 - Update to 20120408 snapshot
 
