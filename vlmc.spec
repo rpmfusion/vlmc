@@ -2,7 +2,7 @@
 
 Name:           vlmc
 Version:        0.2.0
-Release:        0.9.git%{date}%{?dist}
+Release:        0.10.git%{date}%{?dist}
 Summary:        VideoLAN Movie Creator
 
 Group:          Applications/Multimedia
@@ -68,6 +68,9 @@ rm -rf $RPM_BUILD_ROOT
 
 
 %changelog
+* Thu Mar 01 2018 RPM Fusion Release Engineering <leigh123linux@googlemail.com> - 0.2.0-0.10.git20120408
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_28_Mass_Rebuild
+
 * Thu Aug 31 2017 RPM Fusion Release Engineering <kwizart@rpmfusion.org> - 0.2.0-0.9.git20120408
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_27_Mass_Rebuild
 
