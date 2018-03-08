@@ -1,24 +1,27 @@
-%global date 20120408
+%global date 20170812
 
 Name:           vlmc
 Version:        0.2.0
-Release:        0.10.git%{date}%{?dist}
+Release:        0.11.git%{date}%{?dist}
 Summary:        VideoLAN Movie Creator
 
 Group:          Applications/Multimedia
 License:        GPLv2+
 URL:            http://trac.videolan.org/vlmc
 Source0:        vlmc-%{date}.tar.bz2
-Source9:	vlmc-snapshot.sh
-Patch0:         vlmc-13c4dbc-ldf.patch
+Source9:        vlmc-snapshot.sh
 Patch1:         vlmc-gcc47.patch
-BuildRoot:      %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
 
-BuildRequires:  vlc-devel >= 1.1.4
+BuildRequires:  autoconf automake libtool
+BuildRequires:  vlc-devel >= 3.0
+BuildRequires:  libvlcpp-devel
+BuildRequires:  medialibrary-devel
+BuildRequires:  mlt-devel
 BuildRequires:  frei0r-devel
-BuildRequires:  qt-devel >= 4.5.1
+BuildRequires:  qt5-devel >= 4.5.1
 BuildRequires:  cmake >= 2.6.0
 BuildRequires:  desktop-file-utils
+BuildRequires:  /usr/bin/hostname
 Requires:  frei0r-plugins
 
 %description
@@ -26,41 +29,41 @@ VideoLAN Movie Creator is a non-linear editing software for video creation based
 
 %prep
 %setup -q -n vlmc-%{date}
-%patch0 -p1 -b .ldf
 %patch1 -p1 -b .gcc47
 
 
 %build
-mkdir -p build
-pushd build
-%cmake \
-  -DVLMC_LIB_SUBDIR=%{_lib} \
-  -DCMAKE_BUILD_TYPE=Release \
-  ..
-
-make VERBOSE=1 %{?_smp_mflags}
-popd
+./bootstrap
+./configure --help
+%configure
+%make_build VERBOSE=1
 
 
 %install
-rm -rf $RPM_BUILD_ROOT
-pushd build
-make install DESTDIR=$RPM_BUILD_ROOT
-popd
+%make_install
 
-rm -rf $RPM_BUILD_ROOT%{_datadir}/doc
+#rm -rf $RPM_BUILD_ROOT%{_datadir}/doc
+
+# below is the desktop file and icon stuff.
+mkdir -p $RPM_BUILD_ROOT%{_datadir}/applications
+desktop-file-install --dir $RPM_BUILD_ROOT%{_datadir}/applications \
+  share/vlmc.desktop
+
+mkdir -p $RPM_BUILD_ROOT%{_datadir}/pixmaps
+install -p -m 644 share/vlmc.png \
+  $RPM_BUILD_ROOT%{_datadir}/pixmaps
+
+mkdir -p $RPM_BUILD_ROOT%{_mandir}/man1
+install -p -m 644 doc/vlmc.1 \
+  $RPM_BUILD_ROOT%{_mandir}/man1
 
 desktop-file-validate \
   $RPM_BUILD_ROOT%{_datadir}/applications/vlmc.desktop
 
 
-%clean
-rm -rf $RPM_BUILD_ROOT
-
-
 %files
-%defattr(-,root,root,-)
-%doc AUTHORS COPYING NEWS README TRANSLATORS
+%doc AUTHORS NEWS README.md TRANSLATORS
+%license COPYING
 %{_bindir}/vlmc
 %{_mandir}/man1/vlmc.1.*
 %{_datadir}/applications/vlmc.desktop
@@ -68,6 +71,12 @@ rm -rf $RPM_BUILD_ROOT
 
 
 %changelog
+* Thu Mar 08 2018 Sérgio Basto <sergio@serjux.com> - 0.2.0-0.11.git20170812
+- Update to git20170812
+- Move to autotools
+- Add some new dependencies
+- Spec clean up and add license tag
+
 * Thu Mar 01 2018 RPM Fusion Release Engineering <leigh123linux@googlemail.com> - 0.2.0-0.10.git20120408
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_28_Mass_Rebuild
 
