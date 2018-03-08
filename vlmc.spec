@@ -1,64 +1,64 @@
-%global date 20170812
+%global commit 34dab072f6ff5d13755b81aa79e71706b4b4d358
+%global shortcommit %(c=%{commit}; echo ${c:0:7})
 
 Name:           vlmc
 Version:        0.2.0
-Release:        0.11.git%{date}%{?dist}
+Release:        0.12.git%{shortcommit}%{?dist}
 Summary:        VideoLAN Movie Creator
 
-Group:          Applications/Multimedia
 License:        GPLv2+
-URL:            http://trac.videolan.org/vlmc
-Source0:        vlmc-%{date}.tar.bz2
-Source9:        vlmc-snapshot.sh
+URL:            https://www.videolan.org/vlmc/
+Source0:        https://code.videolan.org/videolan/vlmc/repository/archive.tar.gz?ref=%{commit}#/%{name}-%{shortcommit}.tar.gz
 Patch1:         vlmc-gcc47.patch
 
-BuildRequires:  autoconf automake libtool
-BuildRequires:  vlc-devel >= 3.0
-BuildRequires:  libvlcpp-devel
-BuildRequires:  medialibrary-devel
-BuildRequires:  mlt-devel
-BuildRequires:  frei0r-devel
-BuildRequires:  qt5-devel >= 4.5.1
-BuildRequires:  cmake >= 2.6.0
 BuildRequires:  desktop-file-utils
-BuildRequires:  /usr/bin/hostname
+BuildRequires:  gcc-c++
+BuildRequires:  hostname
+BuildRequires:  libtool
+
+BuildRequires:  pkgconfig(frei0r)
+BuildRequires:  pkgconfig(Qt5Core)
+BuildRequires:  pkgconfig(Qt5Widgets)
+BuildRequires:  pkgconfig(Qt5Gui)
+BuildRequires:  pkgconfig(Qt5Network)
+BuildRequires:  pkgconfig(Qt5Quick)
+BuildRequires:  pkgconfig(libvlc)
+BuildRequires:  pkgconfig(libvlcpp)
+BuildRequires:  pkgconfig(medialibrary)
+BuildRequires:  pkgconfig(mlt-framework)
+
+
 Requires:  frei0r-plugins
+Requires:  mlt-freeworld >= 6.3
+
 
 %description
 VideoLAN Movie Creator is a non-linear editing software for video creation based on libVLC
 
 %prep
-%setup -q -n vlmc-%{date}
-%patch1 -p1 -b .gcc47
+%autosetup -p1 -n vlmc-%{commit}-%{commit}
+./bootstrap
 
 
 %build
-./bootstrap
-./configure --help
 %configure
-%make_build VERBOSE=1
+
+%make_build V=1
 
 
 %install
 %make_install
 
-#rm -rf $RPM_BUILD_ROOT%{_datadir}/doc
+mkdir -p %{buildroot}%{_datadir}/pixmaps
+install -pm 0644 share/vlmc.png \
+  %{buildroot}%{_datadir}/pixmaps
 
-# below is the desktop file and icon stuff.
-mkdir -p $RPM_BUILD_ROOT%{_datadir}/applications
-desktop-file-install --dir $RPM_BUILD_ROOT%{_datadir}/applications \
-  share/vlmc.desktop
+mkdir -p %{buildroot}%{_mandir}/man1
+install -pm 0644 doc/vlmc.1 \
+  %{buildroot}%{_mandir}/man1
 
-mkdir -p $RPM_BUILD_ROOT%{_datadir}/pixmaps
-install -p -m 644 share/vlmc.png \
-  $RPM_BUILD_ROOT%{_datadir}/pixmaps
-
-mkdir -p $RPM_BUILD_ROOT%{_mandir}/man1
-install -p -m 644 doc/vlmc.1 \
-  $RPM_BUILD_ROOT%{_mandir}/man1
-
-desktop-file-validate \
-  $RPM_BUILD_ROOT%{_datadir}/applications/vlmc.desktop
+desktop-file-install share/vlmc.desktop \
+  %{buildroot}%{_datadir}/applications/vlmc.desktop
 
 
 %files
@@ -71,6 +71,9 @@ desktop-file-validate \
 
 
 %changelog
+* Thu Mar 08 2018 Nicolas Chauvet <kwizart@gmail.com> - 0.2.0-0.12.git34dab07
+- Rebase to gitlab source URL
+
 * Thu Mar 08 2018 Sérgio Basto <sergio@serjux.com> - 0.2.0-0.11.git20170812
 - Update to git20170812
 - Move to autotools
@@ -79,7 +82,6 @@ desktop-file-validate \
 
 * Thu Mar 01 2018 RPM Fusion Release Engineering <leigh123linux@googlemail.com> - 0.2.0-0.10.git20120408
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_28_Mass_Rebuild
-
 * Thu Aug 31 2017 RPM Fusion Release Engineering <kwizart@rpmfusion.org> - 0.2.0-0.9.git20120408
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_27_Mass_Rebuild
 
