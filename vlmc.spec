@@ -3,7 +3,7 @@
 
 Name:           vlmc
 Version:        0.2.0
-Release:        0.12.git%{shortcommit}%{?dist}
+Release:        0.13.git%{shortcommit}%{?dist}
 Summary:        VideoLAN Movie Creator
 
 License:        GPLv2+
@@ -71,6 +71,9 @@ desktop-file-install share/vlmc.desktop \
 
 
 %changelog
+* Fri Jul 27 2018 RPM Fusion Release Engineering <leigh123linux@gmail.com> - 0.2.0-0.13.git34dab07
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_29_Mass_Rebuild
+
 * Thu Mar 08 2018 Nicolas Chauvet <kwizart@gmail.com> - 0.2.0-0.12.git34dab07
 - Rebase to gitlab source URL
 
