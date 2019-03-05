@@ -3,7 +3,7 @@
 
 Name:           vlmc
 Version:        0.2.0
-Release:        0.14.git%{shortcommit}%{?dist}
+Release:        0.15.git%{shortcommit}%{?dist}
 Summary:        VideoLAN Movie Creator
 
 License:        GPLv2+
@@ -71,6 +71,9 @@ desktop-file-install share/vlmc.desktop \
 
 
 %changelog
+* Tue Mar 05 2019 RPM Fusion Release Engineering <leigh123linux@gmail.com> - 0.2.0-0.15.git34dab07
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_30_Mass_Rebuild
+
 * Sun Aug 19 2018 Leigh Scott <leigh123linux@googlemail.com> - 0.2.0-0.14.git34dab07
 - Rebuilt for Fedora 29 Mass Rebuild binutils issue
 
