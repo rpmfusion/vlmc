@@ -1,9 +1,9 @@
-%global commit 34dab072f6ff5d13755b81aa79e71706b4b4d358
+%global commit 7e251362ca81a3e575210fa887ac76782f178750
 %global shortcommit %(c=%{commit}; echo ${c:0:7})
 
 Name:           vlmc
 Version:        0.2.0
-Release:        0.18.git%{shortcommit}%{?dist}
+Release:        0.19.git%{shortcommit}%{?dist}
 Summary:        VideoLAN Movie Creator
 
 License:        GPLv2+
@@ -71,6 +71,9 @@ desktop-file-install share/vlmc.desktop \
 
 
 %changelog
+* Sat Aug 22 2020 Leigh Scott <leigh123linux@gmail.com> - 0.2.0-0.19.git7e25136
+- Update to git7e25136
+
 * Tue Aug 18 2020 RPM Fusion Release Engineering <leigh123linux@gmail.com> - 0.2.0-0.18.git34dab07
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_33_Mass_Rebuild
 
